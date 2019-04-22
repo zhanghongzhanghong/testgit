@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>page</title>
+    <script src="/html/plugin/WdatePicker.js"></script>
+
+    <script>
+        function test(a,b,c) {
+            console.log(a,b,c);
+        }
+        function test1() {
+            return 0;
+        }
+
+    </script>
+</head>
+<body>
+    <input id="time" type="text" class="Wdate" onclick="WdatePicker({startDate:'%y-%M-%d 00:00:00',dateFmt:'yyyy-MM-dd HH:mm:ss',onpicking:test})"/>
+    <input id="time1" type="text" class="Wdate" onclick="WdatePicker({startDate:'%y-%M-%d 00:00:00',dateFmt:'yyyy-MM-dd HH:mm:ss',onpicking:test})"/>
+</body>
+
+<script type="text/javascript">
+
+    setSecondsDisabledOfCal(["time","time1"])
+    function setSecondsDisabledOfCal(ids) {
+        for(var i = 0;i < ids.length;i++){
+            var id = ids[i];
+            var ele = document.getElementById(id);
+            ele.onfocus = function (ev) {
+               setTimeout(function () {
+                   var iframes = document.getElementsByTagName("iframe");
+                   for(var i = 0;i < iframes.length;i++){
+                       var iframe = iframes[i];
+                       var dpTimeEle = iframe.contentDocument.getElementById("dpTime");
+                       if(dpTimeEle){
+                           var secondEle = dpTimeEle.lastChild.firstChild.firstChild.firstChild.lastChild;
+                           secondEle.disabled=true;
+                       }
+
+                   }
+
+               },200);
+            };
+        }
+    }
+
+</script>
+</html>

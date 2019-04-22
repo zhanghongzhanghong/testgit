@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>获取content</title>
+</head>
+<body>
+   <!--1变量输出与字符串操作-->
+   <p th:text="${content}"> </p>
+
+   <input  th:value="${content}"  />
+      <!--使用thymeleaf 提供的内置对象语法：
+        1.大部分以 s结尾   比如strings ,numbers,dates
+        2.前面一定要带#
+      -->
+   <p th:text="${#strings.isEmpty(content)}"></p>
+   <p th:text="${#strings.contains(content,'阳')}">包含子串</p>
+   <!--2日期的格式化-->
+   <p th:text="${#dates.format(date,'yyyy-MM-dd')}" ></p>
+   <p th:text="${#dates.year(date)}" ></p>
+  <!--3.条件判读-->
+   <p th:if="${judge} == 1 " >男</p>
+
+   <p th:if="${judge} == 2 ">女</p>
+
+   <ul th:switch="${judge}" >
+       <li th:case="1" >男</li>
+       <li th:case="2" >女</li>
+   </ul>
+  <!--4.循环遍历-->
+   <table border="1px">
+       <tr>
+           <td>Id</td>
+           <td>name</td>
+           <td>age</td>
+           <td>index</td>
+       </tr>
+       <tr th:each="u,var : ${list}">
+           <td th:text="${u.id}"></td>
+           <td th:text="${u.name}"></td>
+           <td th:text="${u.age}"></td>
+           <td th:text="${var.index}"></td>
+       </tr>
+   </table>
+
+   <table border="1px">
+       <tr>
+           <td>Id</td>
+           <td>name</td>
+           <td>age</td>
+
+       </tr>
+       <tr   th:each="obj : ${map}">
+           <td  th:text="${obj.value.id}" ></td>
+           <td  th:text="${obj.value.name}" ></td>
+           <td  th:text="${obj.value.age}" ></td>
+       </tr>
+   </table>
+
+
+   <!--5.url表达式-->
+   <a th:href="@{/page}">相对于项目的根</a>
+   <a th:href="@{~/project/resourcename}" >相对于同一服务器</a>
+   <a th:href="@{/page(id=2,name='zhangsan')}" >传参</a>
+   <a th:href="@{/path/page}" >restful传参</a>
+
+  <!--6.取出域对象中的数据 HttpServletRequest HttpServletSession ServletContext-->
+   <p th:text="${#httpServletRequest.getAttribute('req')}"></p>
+   <p th:text="${#session.getAttribute('session')}"></p>
+   <p th:text="${#servletContext.getAttribute('ServletContext')}"></p>
+
+
+</body>
+</html>
