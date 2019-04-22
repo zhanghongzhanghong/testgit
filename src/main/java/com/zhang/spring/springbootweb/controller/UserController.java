@@ -135,8 +135,15 @@ public class UserController {
         return "ok";
     }
 
+    /**
+     * 跳转添加页面
+     * @param user
+     * @return
+     */
      @RequestMapping("addPage")
      public  String addPage(User user){
+         System.out.println(user.toString());
         return "add";
      }
+
 }
